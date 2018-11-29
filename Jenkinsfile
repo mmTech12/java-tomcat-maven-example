@@ -20,10 +20,10 @@ node{
       }  
    
       stage('Publish Docker Image'){
-         withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerPWD')]) {
+         withCredentials([string(credentialsId: 'dockerpwd_mmtech21', variable: 'dockerPWD_mmtech21')]) {
               sh "docker login -u mmtech21 -p ${dockerPWD}"
          }
-        sh 'docker push rajnikhattarrsinha/javatomcatsampledemo:2.0.0'
+        sh 'docker push mmtech21/javatomcatsampledemo:2.0.0'
       }
 
    stage('Stop running containers'){        
@@ -37,7 +37,7 @@ node{
    stage('Pull Docker Image and Deploy'){        
          
             def dockerContainerName = 'javatomcatsampledemo-$JOB_NAME-$BUILD_NUMBER'
-            def dockerRun= "sudo docker run -p 8080:8080 -d --name ${dockerContainerName} rajnikhattarrsinha/javatomcatsampledemo:2.0.0"         
+            def dockerRun= "sudo docker run -p 8080:8080 -d --name ${dockerContainerName} mmtech21/javatomcatsampledemo:2.0.0"         
             sshagent(['dockerdeployserver2']) {
               sh "ssh -o StrictHostKeyChecking=no ubuntu@18.215.68.236 ${dockerRun}"              
          }
