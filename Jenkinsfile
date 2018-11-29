@@ -1,7 +1,7 @@
 node{
       
       stage('SCM Checkout'){
-         git 'https://github.com/rajnikhattarrsinha/java-tomcat-maven-example'
+         git 'https://github.com/mmTech12/java-tomcat-maven-example'
       }
   
       stage('Mvn Build'){
@@ -16,12 +16,12 @@ node{
       }  
       
     stage('Build Docker Image'){
-         sh 'docker build -t rajnikhattarrsinha/javatomcatsampledemo:2.0.0 .'
+         sh 'docker build -t mmtech21/javatomcatsampledemo:2.0.0 .'
       }  
    
       stage('Publish Docker Image'){
          withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerPWD')]) {
-              sh "docker login -u rajnikhattarrsinha -p ${dockerPWD}"
+              sh "docker login -u mmtech21 -p ${dockerPWD}"
          }
         sh 'docker push rajnikhattarrsinha/javatomcatsampledemo:2.0.0'
       }
